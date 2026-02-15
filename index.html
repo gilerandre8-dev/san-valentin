@@ -1,236 +1,224 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>San Valentín 💖</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>San Valentín 💖</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: "Times New Roman", serif;
-    }
+<style>
+* { box-sizing: border-box; font-family: "Times New Roman", serif; }
 
-    body {
-      margin: 0;
-      background: radial-gradient(circle at top, #ffd1dc, #ff4d6d);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      text-align: center;
-    }
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #ffd1dc, #ff3366);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: white;
+  text-align: center;
+}
 
-    /* 💓 Corazones flotando */
-    .heart {
-      position: fixed;
-      bottom: -30px;
-      color: rgba(255,255,255,0.85);
-      animation: float 10s linear infinite;
-      pointer-events: none;
-    }
+/* TARJETA */
+.page {
+  display: none;
+  width: 90%;
+  max-width: 580px;
+  padding: 55px;
+  background: linear-gradient(145deg, #ff7aa2, #ff0033);
+  border-radius: 40px;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.45),
+    inset 0 0 35px rgba(255,255,255,.4);
+  transform: rotateX(15deg);
+  animation: openCard 1.2s ease forwards;
+}
 
-    @keyframes float {
-      from { transform: translateY(0) scale(1); opacity: 1; }
-      to { transform: translateY(-120vh) scale(1.6); opacity: 0; }
-    }
+.page.active { display: block; }
 
-    /* ✨ Partículas brillantes */
-    .sparkle {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
-      animation: sparkle 4s linear infinite;
-      opacity: 0.8;
-      pointer-events: none;
-    }
+@keyframes openCard {
+  from { opacity: 0; transform: scale(.9) rotateX(15deg); }
+  to { opacity: 1; transform: scale(1) rotateX(0); }
+}
 
-    @keyframes sparkle {
-      from { transform: translateY(0); opacity: 1; }
-      to { transform: translateY(-100vh); opacity: 0; }
-    }
+/* TEXTO */
+h1 {
+  font-size: 44px;
+  text-shadow: 0 6px 15px rgba(0,0,0,.45);
+}
 
-    .page {
-      display: none;
-      width: 100%;
-      max-width: 600px;
-      padding: 50px;
-      background: linear-gradient(145deg, #ff6fa5, #ff0033);
-      border-radius: 35px;
-      box-shadow:
-        0 25px 45px rgba(0,0,0,0.4),
-        inset 0 0 25px rgba(255,255,255,0.4);
-      animation: openCard 1.2s ease;
-    }
+p {
+  font-size: 26px;
+  line-height: 1.7;
+}
 
-    .page.active {
-      display: block;
-    }
+/* BOTONES */
+button {
+  padding: 24px 52px;
+  font-size: 26px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  margin: 18px;
+  font-weight: bold;
+  transition: .25s;
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
 
-    @keyframes openCard {
-      from { opacity: 0; transform: scale(0.85) rotateX(15deg); }
-      to { opacity: 1; transform: scale(1) rotateX(0deg); }
-    }
+button:hover { transform: scale(1.12); }
 
-    h1 {
-      font-size: 44px;
-      margin-bottom: 30px;
-      text-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    }
+.yes { background: white; color: #ff0033; }
+.option { background: #ffe4ec; color: #b8002e; }
 
-    p {
-      font-size: 24px;
-      line-height: 1.6;
-    }
+.no {
+  position: absolute;
+  background: white;
+  color: #ff0033;
+}
 
-    button {
-      padding: 22px 50px;
-      font-size: 24px;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      margin: 15px;
-      font-weight: bold;
-      transition: transform 0.3s;
-    }
+/* CORAZONES */
+.heart {
+  position: fixed;
+  font-size: 22px;
+  animation: float 9s linear infinite;
+  opacity: .9;
+}
 
-    button:hover {
-      transform: scale(1.12);
-    }
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
 
-    .yes {
-      background: #fff;
-      color: #ff0033;
-    }
+/* EXPLOSIÓN */
+@keyframes explode {
+  from { transform: translate(0,0) scale(1); opacity: 1; }
+  to { transform: translate(var(--x), var(--y)) scale(2.3); opacity: 0; }
+}
 
-    .option {
-      background: #ffe3ea;
-      color: #c8002f;
-    }
+/* BRILLOS */
+.sparkle {
+  position: fixed;
+  width: 7px;
+  height: 7px;
+  background: white;
+  border-radius: 50%;
+  animation: sparkle 3.5s linear infinite;
+  opacity: .85;
+}
 
-    .no {
-      background: #fff;
-      color: #ff0033;
-      position: absolute;
-    }
-  </style>
+@keyframes sparkle {
+  from { transform: translateY(0); }
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- 🎵 Música -->
-  <audio id="bgMusic" loop>
-    <source src="musica.mp3" type="audio/mpeg">
-  </audio>
+<!-- 🎵 MUSICA -->
+<audio id="music" src="destino.mp3" loop></audio>
 
-  <script>
-    const music = document.getElementById("bgMusic");
-    music.volume = 0.6;
+<script>
+/* MUCHOS CORAZONES */
+for (let i = 0; i < 60; i++) {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "❤";
+  h.style.left = Math.random()*100 + "vw";
+  h.style.bottom = "-30px";
+  h.style.fontSize = 18 + Math.random()*28 + "px";
+  h.style.animationDelay = Math.random()*10 + "s";
+  document.body.appendChild(h);
+}
 
-    function startMusic() {
-      music.play();
-      music.currentTime = music.duration / 2;
-      explosion();
-    }
-  </script>
+/* MUCHOS BRILLOS */
+for (let i = 0; i < 45; i++) {
+  const s = document.createElement("div");
+  s.className = "sparkle";
+  s.style.left = Math.random()*100 + "vw";
+  s.style.bottom = "-20px";
+  s.style.animationDelay = Math.random()*4 + "s";
+  document.body.appendChild(s);
+}
 
-  <!-- 💓 Corazones y ✨ partículas -->
-  <script>
-    for (let i = 0; i < 120; i++) {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "❤";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = (18 + Math.random() * 30) + "px";
-      heart.style.animationDelay = Math.random() * 10 + "s";
-      document.body.appendChild(heart);
-    }
+/* EXPLOSIÓN */
+function heartExplosion() {
+  for (let i = 0; i < 45; i++) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤";
+    h.style.left = "50vw";
+    h.style.top = "50vh";
+    h.style.fontSize = 24 + Math.random()*36 + "px";
+    h.style.setProperty("--x", (Math.random()*600-300)+"px");
+    h.style.setProperty("--y", (Math.random()*-600)+"px");
+    h.style.animation = "explode 2.2s ease-out forwards";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),2200);
+  }
+}
 
-    for (let i = 0; i < 60; i++) {
-      const sparkle = document.createElement("div");
-      sparkle.className = "sparkle";
-      sparkle.style.left = Math.random() * 100 + "vw";
-      sparkle.style.animationDelay = Math.random() * 6 + "s";
-      document.body.appendChild(sparkle);
-    }
+/* MUSICA DESDE LA MITAD */
+function playMusic(){
+  const m = document.getElementById("music");
+  m.volume = 0.45;
+  m.onloadedmetadata = () => {
+    m.currentTime = m.duration / 2;
+    m.play();
+  };
+}
+</script>
 
-    function explosion() {
-      for (let i = 0; i < 40; i++) {
-        const e = document.createElement("div");
-        e.innerHTML = "❤";
-        e.style.position = "fixed";
-        e.style.left = "50%";
-        e.style.top = "50%";
-        e.style.fontSize = "30px";
-        e.style.color = "#fff";
-        e.style.transform = `translate(${Math.random()*400-200}px, ${Math.random()*400-200}px)`;
-        e.style.opacity = 1;
-        e.style.transition = "all 1.5s ease";
-        document.body.appendChild(e);
-        setTimeout(() => e.remove(), 1500);
-      }
-    }
-  </script>
+<!-- PAGINAS -->
+<div class="page active" id="page1">
+  <h1>💖 ¿Quieres ser mi San Valentín? 💖</h1>
+  <button class="yes" onclick="playMusic(); heartExplosion(); goTo('page2')">SI</button>
+  <button class="no" id="noBtn">NO</button>
+</div>
 
-  <!-- Página 1 -->
-  <div class="page active" id="page1">
-    <h1>💖 ¿Quieres ser mi San Valentín? 💖</h1>
-    <button class="yes" onclick="startMusic(); goTo('page2')">SI</button>
-    <button class="no" id="noBtn">NO</button>
-  </div>
+<div class="page" id="page2">
+  <h1>¿QUÉ PREFIERES?</h1>
+  <button class="option" onclick="goTo('picnic')">PICNIC</button>
+  <button class="option" onclick="goTo('cine')">CINE</button>
+</div>
 
-  <!-- Página 2 -->
-  <div class="page" id="page2">
-    <h1>¿QUÉ PREFIERES?</h1>
-    <button class="option" onclick="goTo('picnic')">PICNIC</button>
-    <button class="option" onclick="goTo('cine')">CINE</button>
-  </div>
+<div class="page" id="picnic">
+  <h1>¿Qué comida te gustaría?</h1>
+  <button class="option" onclick="goTo('finalPicnic')">Arroz con Camarón</button>
+  <button class="option" onclick="goTo('finalPicnic')">Chaulafán</button>
+</div>
 
-  <!-- Picnic -->
-  <div class="page" id="picnic">
-    <h1>¿Qué comida te gustaría?</h1>
-    <button class="option" onclick="goTo('finalPicnic')">Arroz con Camarón</button>
-    <button class="option" onclick="goTo('finalPicnic')">Chaulafán</button>
-  </div>
+<div class="page" id="cine">
+  <h1>¿Qué comida te gustaría?</h1>
+  <button class="option" onclick="goTo('finalCine')">Hamburguesas</button>
+  <button class="option" onclick="goTo('finalCine')">Palomitas</button>
+</div>
 
-  <!-- Cine -->
-  <div class="page" id="cine">
-    <h1>¿Qué comida te gustaría?</h1>
-    <button class="option" onclick="goTo('finalCine')">Hamburguesas</button>
-    <button class="option" onclick="goTo('finalCine')">Palomitas</button>
-  </div>
+<div class="page" id="finalPicnic">
+  <h1>🌹 Tenemos una cita 🌹</h1>
+  <p>📅 28 de Marzo<br>⏰ 13:00 PM</p>
+  <p>Disfruta de una hermosa velada ✨</p>
+</div>
 
-  <!-- Final Picnic -->
-  <div class="page" id="finalPicnic">
-    <h1>🌹 Tenemos una cita 🌹</h1>
-    <p>📅 28 de Marzo<br>⏰ 13:00 PM</p>
-    <p>Disfruta de una hermosa velada ✨</p>
-  </div>
+<div class="page" id="finalCine">
+  <h1>🎬 Tenemos una cita 🎬</h1>
+  <p>📅 28 de Marzo<br>⏰ 13:00 PM</p>
+  <p>Disfruta de una hermosa película 🍿❤️</p>
+</div>
 
-  <!-- Final Cine -->
-  <div class="page" id="finalCine">
-    <h1>🎬 Tenemos una cita 🎬</h1>
-    <p>📅 28 de Marzo<br>⏰ 13:00 PM</p>
-    <p>Disfruta de una hermosa película 🍿❤️</p>
-  </div>
+<script>
+function goTo(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
 
-  <script>
-    function goTo(id) {
-      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
-    }
-
-    const noBtn = document.getElementById("noBtn");
-    noBtn.addEventListener("mouseenter", () => {
-      noBtn.style.left = Math.random() * (window.innerWidth - 150) + "px";
-      noBtn.style.top = Math.random() * (window.innerHeight - 80) + "px";
-    });
-  </script>
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseenter",()=>{
+  noBtn.style.left=Math.random()*(window.innerWidth-160)+"px";
+  noBtn.style.top=Math.random()*(window.innerHeight-90)+"px";
+});
+</script>
 
 </body>
 </html>
-
